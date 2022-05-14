@@ -1,6 +1,6 @@
 # Practice Unreal Engine 4
 Using Unreal Engine 4.18.3 <br>
-[Udemy Link](https://www.udemy.com/course/unrealengine-cpp/,"https://www.udemy.com/course/unrealengine-cpp/")
+[Udemy Link](https://www.udemy.com/course/unrealengine-cpp/)
 <br><br><br>
 
 ### _What I've learned?_
