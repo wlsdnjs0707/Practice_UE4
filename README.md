@@ -18,10 +18,11 @@ Using Unreal Engine 4.18.3 <br>
 - 뷰포인트 변경
 - 멀티플레이어 설정
 - 게임 배포
+<br><br>
 
 > ## Project2: Co-op Game
 
-- Player Setup
+1. Player Setup
   - 캐릭터 이동 구현, 마우스 화면 뷰 구현
   - TPP(Third Person Perspective) View 구현 (SpringArmComponent)
   - 플레이어 Mesh, Animation 세팅
