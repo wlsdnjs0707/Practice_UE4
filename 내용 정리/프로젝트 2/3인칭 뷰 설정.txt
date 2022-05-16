@@ -1,0 +1,33 @@
+헤더파일에
+
+class UCameraComponent; 선언하고
+
+protected:
+UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+UCameraComponent* CameraComp;
+
+cpp에
+
+#include "Camera/CameraComponent.h"
+
+생성자에
+CameraComp = CreateAbstractDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
+CameraComp->bUsePawnControlRotation = true;
+
++ 스프링암 설정 (카메라가 3인칭 캐릭터 기준으로 orbit)
+헤더
+class USpringArmComponent;
+
+UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+USpringArmComponent* SpringArmComp;
+
+cpp
+#include "GameFramework/SpringArmComponent.h"
+
+SpringArmComp = CreateAbstractDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
+SpringArmComp->bUsePawnControlRotation = true;
+SpringArmComp->SetupAttachment(RootComponent);
+
+CameraComp = CreateAbstractDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
+CameraComp->SetupAttachment(SpringArmComp);
+로 수정 (스프링암에 로테이션)

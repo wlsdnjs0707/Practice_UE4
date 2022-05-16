@@ -1,0 +1,22 @@
+오브젝트 cpp, 헤더파일 생성
+
+헤더에 
+USphereComponent 등 오버랩할 컴포넌트 생성
+UPROPERTY( ~~ )
+
+오버랩 이벤트 함수 선언
+UFUNCTION( )
+
+cpp에
+메시 설정, Tick설정, 오버랩이벤트 설정
+
+ex)
+#include "Components/StaticMeshComponent.h"
+
+MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
+MeshComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+RootComponent = MeshComp;
+
+이후 에디터에서 머터리얼 할당해주고 게임에 배치
+
++ 오버랩될 오브젝트들 generate overlap events 체크 해야 됨

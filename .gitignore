@@ -5,3 +5,10 @@ StealthGameTemplate417/Build
 StealthGameTemplate417/Plugins
 StealthGameTemplate417/*.sln
 StealthGameTemplate417/*_BuiltData.uasset
+CoopGame/Saved
+CoopGame/Intermediate
+CoopGame/.vs
+CoopGame/Build
+CoopGame/Plugins
+CoopGame/*.sln
+CoopGame/*_BuiltData.uasset

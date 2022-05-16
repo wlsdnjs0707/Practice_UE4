@@ -1,0 +1,26 @@
+# 기본 메시 세팅
+마켓에서 Animation StarterPack (무료)
+Project에 Add
+Player 블루프린트에 Mesh 속성할당, location, rotation 알맞게 설정
+
+# 크라우치(앉기) 애니메이션 세팅
+헤더에 크라우치, 언크라우치 함수 선언하고 임플먼트에는 그냥 Crouch(), UnCrouch() 이미존재하는것 있음
+
+셋업인풋컴포넌트에
+PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ASCharacter::BeginCrouch);
+PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ASCharacter::EndCrouch);
+
+에디터 프로젝트세팅-인풋 Action mapping설정 Crouch -> left ctrl
+
+애니메이션 블루프린트에 들어가서 수정 (플레이어폰)
+이후 플레이어폰 메시-애니메이션 속성에 AnimClass 블루프린트 할당
+
+# 점프 애니메이션 세팅
+PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+이미 존재하므로, &ACharacter에서 상속
+
+프로젝트세팅 - 인풋 - Action mapping 할당해주면 끝
+
++ 플레이어폰 character movement에서 여러가지 jump관련 인스턴스 수정 가능
+
+애니메이션 블루프린트에서 wasjumping(이미존재) -> set EnableJump 로 boolean설정해줌

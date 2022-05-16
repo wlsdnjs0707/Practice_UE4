@@ -1,0 +1,21 @@
+오브젝트 cpp에 
+SetReplicates(true);
+SetReplicateMovement(true);
+--> 서버에서 업데이트된 오브젝트가 클라이언트에도 보임
++ 블루프린트에서 Replicate 체크했는지 확인!
+
+BUT 클라이언트에서 서버로는 전송이 안됨.
+즉 모든 업데이트가 서버에서 이루어진다음 클라이언트에게 보내지도록 한다.
+
+if (Role == ROLE_Authority) 이면 ~~
+
+#2 서버는 클라이언트가 위를보고있는지 아랠보고있는지 모름
+if (!isLocallyControlled()) 이면
+FRotator NewRot = Mesh1PComponent->RelativeRotation;
+NewRot.Pitch = RemoteViewPitch;
+Mesh1PComponent->SetRelativeRotation(NewRot);
+로 바꿔준다
+
+uint8 -> 음수 저장불가
+한가지방법 : NewRot.Pitch = RemoteViewPitch * 360.0f/255.0f ;
+

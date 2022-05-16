@@ -1,5 +1,0 @@
-1. C:\Program Files (x86)\Epic Games\Launcher\Engine\Binaries\Win64\UnrealVersionSelector.exe 파일을 찾는다.
-
-2.  \UE_4.22\Engine\Binaries\Win64 디렉토리에 복사한다.
-
-3. 복사한 UnrealVersionSelector.exe 을 실행 후에, 레지스트리 등록한다.

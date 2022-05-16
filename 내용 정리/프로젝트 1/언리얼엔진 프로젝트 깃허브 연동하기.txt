@@ -1,0 +1,13 @@
+출처 https://somworks.tistory.com/24
+
+/Saved
+/Intermediate
+/.vs
+/Build
+/Plugins
+*.sln
+*_BuiltData.uasset
+
+를 .gitignore 파일에 추가하여 대용량 무시
+
+이후 commit -> push

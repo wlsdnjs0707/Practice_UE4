@@ -1,0 +1,36 @@
+인식 / 이동 기능이 있는 AI 캐릭터 생성하기
+AI클래스 (캐릭터) 생성 -> 캐릭터클래스는 메시 등 지정되어 있어 편함
+
+플레이어가 아니기때문에 플레이어인풋컴포넌트 제거
+
+UPawnSensingComponent로 인식
+
+GameBuild.cs에서 (C#)
+PublicDependencyModuleNames에 "AIModule"추가
+
+헤더에서
+UFUNCTION()
+void OnPawnSeen(APawn* SeenPawn);
+
+UFUNCTION()
+void OnNoiseHeard(APawn* NoiseInstigator, const FVector& Location, float Volume);
+선언한 뒤
+
+cpp에서
+PawnSensingComp = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensingComp"));
+
+PawnSensingComp->OnSeePawn.AddDynamic(this, &AFPSAIGuard::OnPawnSeen);
+PawnSensingComp->OnHearNoise.AddDynamic(this, &AFPSAIGuard::OnNoiseHeard);
+
+시각 / 청각 인식
+
++ 액터 방향(로테이션) 바꾸기
+FRotator NewLookAt = FRotationMatrix::MakeFromX(Direction).Rotator();
+SetActorRotation(NewLookAt);
+
++ 액터 이동
+UNavigationSystem::SimpleMoveToActor(GetController(), Point(벡터));
++멈출때
+AController* Controller = GetController();
+Controller->StopMovement();
+--> Nav메시 필요함 (바닥)

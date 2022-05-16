@@ -1,0 +1,22 @@
+캐릭터 SetupPlayerInputComponent에
+PlayerInputComponent->BindAxis("MoveForward", this, &ASCharacter::MoveForward);
+
+헤더파일에 void MoveForward(float Value); 하고 implement 생성
+함수에는 AddMovementInput(GetActorForwardVector() * Value);
+옆으로 이동할땐 GetActorRightVector() 이용
+
+이후 에디터 편집 - 프로젝트세팅 - 입력(Input) 에서 axis mapping추가
+MoveFoward는 W가 1, S가 -1 (뒤로)
+
+만든 클래스 블루프린트에 할당후 게임에 넣고 Pawn-AutoPossess항목
+Player0로 할당
+
+-> wasd로 이동가능
+
+마우스 화면 이동 (뷰)
+PlayerInputComponent->BindAxis("LookUp", this, &ASCharacter::AddControllerPitchInput);
+PlayerInputComponent->BindAxis("Turn", this, &ASCharacter::AddControllerYawInput);
+얘네는 함수 이미존재
+
+에디터 axis mapping에 LookUp에 마우스Y, Turn에 마우스X 할당
+but lookup 스케일을 -1로 (위아래 반대로 됨)

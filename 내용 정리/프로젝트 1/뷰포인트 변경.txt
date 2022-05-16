@@ -1,0 +1,23 @@
+뷰포인트 카메라 블루프린트 생성한 후 (액터)
+게임에 배치하고
+
+# 블루프린트에서 설정
+이벤트 그래프에서 get actor class (카메라) 받고
+Set View Target with Blend 로 설정
+
+# cpp에서 설정
+APlayerController* PC = Cast<APlayerController>(InstigatorPawn->GetController());
+PC->SetViewTargetWithBlend(nullptr, 0.5f, EViewTargetBlendFunction::VTBlend_Cubic);
+로 뷰 변경
+
+여기서 nullptr자리에 액터 넣어주면 됨.
+액터 받는법
+
+TArray<AActor*> ReturnedActors; //어레이 만들고
+UGameplayStatics::GetAllActorsOfClass(this, SpectatingViewpointClass, ReturnedActors);
+로 모든 액터 받아 배열에 넣은 다음 ReturnedActors[0] 로 할당하면 됨.
+
+SpectatingViewpointClass는 헤더파일에
+UPROPERTY(EditDefaultsOnly, Category = "Spectating")
+TSubclassOf<AActor> SpectatingViewpointClass;
+로 선언
