@@ -26,3 +26,10 @@ Using Unreal Engine 4.18.3 <br>
   - 캐릭터 이동 구현, 마우스 화면 뷰 구현
   - TPP(Third Person Perspective) View 구현 (SpringArmComponent)
   - 플레이어 Mesh, Animation 세팅
+
+### **2. Weapon Basics**
+  - Weapon 클래스 추가
+  - 라인 트레이싱 (발사) 로직
+  - Fire, Hit 애니메이션 할당
+  - 데미지 로직
+  - 크로스헤어 UI 추가

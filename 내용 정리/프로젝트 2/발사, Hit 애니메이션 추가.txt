@@ -1,0 +1,41 @@
+무기클래스 헤더파일
+#include "Particles/ParticleSystem.h"
+
+UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+FName MuzzleSocketName;
+
+UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+UParticleSystem* MuzzleEffect;
+
+UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+UParticleSystem* ImpactEffect;
+
+cpp파일 fire 함수에
+
+FVector ShotDirection = EyeRotation.Vector();
+FCollisionQueryParams QueryParams;
+QueryParams.AddIgnoredActor(MyOwner);
+QueryParams.AddIgnoredActor(this);
+QueryParams.bTraceComplex = true;
+FHitResult Hit;
+
+if (GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, ECC_Visibility, QueryParams))
+{
+	// Blocking Hit! Process Damage
+	AActor* HitActor = Hit.GetActor();
+
+	UGameplayStatics::ApplyPointDamage(HitActor, 20.0f, ShotDirection, Hit, MyOwner->GetInstigatorController(), this, DamageType);
+			
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.ImpactPoint, Hit.ImpactNormal.Rotation());
+		
+}
+
+if (MuzzleEffect)
+{
+	UGameplayStatics::SpawnEmitterAttached(MuzzleEffect, MeshComp, MuzzleSocketName);
+}
+
+하면 무기 블루프린트에 머즐이펙트, 임팩트이펙트 항목 생김
+할당하면 총구부분에 머즐이펙트, 레이트레이싱 맞는부분에 임팩트 이펙트 출력
+출력위치 이상하다면 무기 스켈레톤 들어가서 소켓이름 맞게 다시설정 (MuzzleSocket으로)
+

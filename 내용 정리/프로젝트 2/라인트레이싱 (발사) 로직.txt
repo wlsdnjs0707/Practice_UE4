@@ -1,0 +1,46 @@
+헤더에 
+
+void Fire();
+후 임플멘테이션 추가
+
+cpp에
+
+AActor* MyOwner = GetOwner();
+
+if (MyOwner)
+{
+	FVector EyeLocation;
+	FRotator EyeRotation;
+	MyOwner->GetActorEyesViewPoint(EyeLocation, EyeRotation);
+
+	FVector TraceEnd = EyeLocation + (EyeRotation.Vector() * 10000);
+
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(MyOwner);
+	QueryParams.AddIgnoredActor(this);
+	QueryParams.bTraceComplex = true;
+
+	FHitResult Hit;
+
+	if (GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, ECC_Visibility, QueryParams))
+	{
+		// Blocking Hit! Process Damage
+		
+	}
+
+	DrawDebugLine(GetWorld(), EyeLocation, TraceEnd, FColor::White, false, 1.0f, 0, 1.0f);
+}
+
+이후 플레이어 블루프린트 이벤트그래프에서
+무기BP 와 attach 사이 set currentweapon 변수 설정해주고
+왼쪽 마우스버튼 클릭시 fire 함수작동설정, current weapon 타겟에 넣어줌
+이러면 좌클릭시 흰색 라인트레이싱 나옴 (발사)
+--> FPP용 플레이어 눈에서 발사되는 로직임
+
+# TPP용 카메라에서 발사되게 하려면??
+캐릭터 클래스 헤더에 
+virtual FVector GetPawnViewLocation() const override;
+
+임플먼트 생성 뒤 그 함수에
+return CameraComp->GetComponentLocation();
+

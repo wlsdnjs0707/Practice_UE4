@@ -1,0 +1,23 @@
+actor 클래스로 추가
+
+헤더파일에
+class USkeletalMeshComponent;
+
+UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components");
+USkeletalMeshComponent* MeshComp;
+
+cpp에 (생성자에)
+MeshComp = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MeshComp"));
+RootComponent = MeshComp;
+
+이후 무기 블루프린트 생성 한 다음 메시 할당하고
+플레이어 블루프린트 Beginplay 이벤트그래프에 SpawnActor from 클래스 만들고
+클래스에 무기 블루프린트 할당, attach to component 에 반환 (부모=플레이어 메시)
+여기서 소켓네임을 찾아야한다.
+
+플레이어 메시 중 스켈레톤에 들어가서 적절한 부위에 add socket 해주고
+플레이어 블루프린트 이벤트 그래프에 추가한 소켓 이름 넣어주면
+
+게임내에서 그 부위에 무기가 붙어있음.
+
++ 스켈레톤 소켓 각도와 위치 조정 가능

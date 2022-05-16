@@ -1,0 +1,22 @@
+무기클래스 헤더에
+UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+TSubclassOf<UDamageType> DamageType;
+
+무기 클래스 cpp -> Fire 함수에
+
+#include "Kismet/GameplayStatics.h"
+
+FVector ShotDirection = EyeRotation.Vector();
+FHitResult Hit;
+
+if (GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, ECC_Visibility, QueryParams))
+{
+	// Blocking Hit! Process Damage
+	AActor* HitActor = Hit.GetActor();
+	UGameplayStatics::ApplyPointDamage(HitActor, 20.0f, ShotDirection, Hit, MyOwner->GetInstigatorController(), this, DamageType);
+}
+
++ 더미추가 (데미지 확인용)
+
+액터 블루프린트 추가해서 skeletal mesh 할당해주고 이벤트그래프에 Point Damage Event 추가
+(더미 콜리전타입 block all 설정해줘야함)
