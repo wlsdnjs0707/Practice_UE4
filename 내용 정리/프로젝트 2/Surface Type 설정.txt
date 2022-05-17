@@ -1,0 +1,30 @@
+피직스 -> 피지컬 머터리얼 생성 후 Physical Properties에서 surface type 설정 가능
+프로젝트세팅 - 피지컬에서 surface type 만들수 있음.
+
+이후 애니메이션 - 피직스에서 원하는 부위 선택하고 collision - phys material 할당해준다.
+
+QueryParams.bReturnPhysicalMaterial = true; 선언후
+
+# 임팩트 함수에 
+EPhysicalSurface SurfaceType = UPhysicalMaterial::DetermineSurfaceType(Hit.PhysMaterial.Get());
+
+UParticleSystem* SelectedEffect = nullptr;
+
+switch(SurfaceType)
+{
+case SurfaceType1: //FleshDefault
+case SurfaceType2:
+	SelectedEffect = FleshImpactEffect;
+	break;
+default:
+	SelectedEffect = ImpactEffect;
+	break;
+}
+
+if (SelectedEffect)
+{
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), SelectedEffect, Hit.ImpactPoint, Hit.ImpactNormal.Rotation());
+}
+
+이후 무기클래스 블루프린트에서
+surface별 임팩트 애니메이션 할당 가능

@@ -1,0 +1,5 @@
+if (GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, ECC_GameTraceChannel1, QueryParams))
+
+에서 ECC_GameTraceChannel1이 커스텀 (프로젝트세팅 - collision에서 만들수있음)
+
+이후 오브젝트 블루프린트 - collision에서 세팅 가능

@@ -1,0 +1,31 @@
+버튼 누를때 줌 bool 변수 true, 버튼 뗄 때 bool 변수 false
+
+헤더에
+bool bWantsToZoom;
+
+UPROPERTY(EditDefaultsOnly, Category = "Player")
+float ZoomedFOV;
+
+UPROPERTY(EditDefaultsOnly, Category = "Player", meta = (ClampMin = 0.1, ClampMax = 100))
+float ZoomInterSpeed;
+
+// Default FOV
+float DefaultFOV;
+
+void BeginZoom();
+void EndZoom();
+
+생성자에
+ZoomedFOV = 65.0f;
+ZoomInterSpeed = 20;
+
+beginplay에
+DefaultFOV = CameraComp->FieldOfView;
+
+tick 함수에 
+float targetFOV = bWantsToZoom ? ZoomedFOV : DefaultFOV;
+float NewFOV = FMath::FInterpTo(CameraComp->FieldOfView, targetFOV, DeltaTime, ZoomInterSpeed);
+CameraComp->SetFieldOfView(NewFOV);
+
+에디터에서 프로젝트세팅-인풋 우클릭시 줌 할당
+플레이어폰 블루프린트에서 줌속도, FOV 조절 가능

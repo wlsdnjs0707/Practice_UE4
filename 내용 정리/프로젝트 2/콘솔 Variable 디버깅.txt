@@ -1,0 +1,12 @@
+무기 클래스에
+static int32 DebugWeaponDrawing = 0;
+FAutoConsoleVariableRef CVARDebugWeaponDrawing(TEXT("COOP.DebugWeapons"), DebugWeaponDrawing, TEXT("Draw Debug Lines for Weapons"), ECVF_Cheat);
+선언하고
+
+fire 함수에
+if (DebugWeaponDrawing > 0)
+{
+	DrawDebugLine(GetWorld(), EyeLocation, TraceEnd, FColor::White, false, 1.0f, 0, 1.0f);
+}
+
+하면 게임 플레이중 ` 키로 콘솔 열고 coop.debugweapon 1 치면 DrawDebugLine 실행되고 0치면 다시 안나옴.

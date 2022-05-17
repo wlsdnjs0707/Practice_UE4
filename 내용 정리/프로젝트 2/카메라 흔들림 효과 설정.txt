@@ -1,0 +1,18 @@
+#cpp
+APawn* MyOwner = Cast<APawn>(GetOwner());
+
+if (MyOwner)
+{
+	APlayerController* PC = Cast<APlayerController>(MyOwner->GetController());
+	if (PC)
+	{
+		PC->ClientPlayCameraShake(FireCamShake);
+	}
+}
+
+#헤더
+UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+TSubclassOf<UCameraShake> FireCamShake;
+
+camerashake 클래스로 블루프린트 만들고 여러가지 oscillation 설정 (화면 흔들림)
+무기 블루프린트 클래스에 Fire Cam Shake에 방금 만든 블루프린트 할당

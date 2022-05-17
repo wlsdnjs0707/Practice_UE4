@@ -33,3 +33,11 @@ Using Unreal Engine 4.18.3 <br>
   - Fire, Hit 애니메이션 할당
   - 데미지 로직
   - 크로스헤어 UI 추가
+
+### **3. Weapon Extras**
+  - Zoom Mechanics
+  - 콘솔로 Variable Debugging
+  - 카메라 흔들림 효과 설정
+  - Surface Type 설정
+  - Custom Collision Channel 설정
+  - Auto-Fire 구현

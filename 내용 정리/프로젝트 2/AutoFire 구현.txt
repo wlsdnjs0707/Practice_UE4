@@ -1,0 +1,28 @@
+헤더에
+(퍼블릭)
+void StartFire();
+void StopFire();
+
+(프라이빗)
+FTimerHandle TimerHandle_TimeBetweenShots;
+
+float LastFireTime;
+
+UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+float RateOfFire;
+
+float TimeBetweenShots;
+
+void ASWeapon::StartFire()
+{
+	float FirstDelay = FMath::Max(LastFireTime + TimeBetweenShots - GetWorld()->TimeSeconds, 0.0f);
+	GetWorldTimerManager().SetTimer(TimerHandle_TimeBetweenShots, this, &ASWeapon::Fire, TimeBetweenShots, true, FirstDelay);
+}
+
+void ASWeapon::StopFire()
+{
+	GetWorldTimerManager().ClearTimer(TimerHandle_TimeBetweenShots);
+}
+
+이후 무기클래스 블루프린트에서 RateOfFire 수정가능
+
