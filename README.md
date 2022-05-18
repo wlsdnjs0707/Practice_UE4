@@ -21,7 +21,7 @@ Using Unreal Engine 4.18.3 <br>
 <br><br>
 
 > ## Project 2: Co-op Game
-<img src="https://user-images.githubusercontent.com/86781939/169049886-ade9b8b4-8d52-49df-80f8-0db579196b23.png" width="1800" height="1200" >
+<img src="https://user-images.githubusercontent.com/86781939/169050868-932a05aa-1df6-4527-85fe-a2fb17028f55.png" width="800" height="400" >
 
 ### **1. Player Setup**
   - 캐릭터 이동 구현, 마우스 화면 뷰 구현
