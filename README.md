@@ -7,7 +7,7 @@ Using Unreal Engine 4.18.3 <br>
 <br><br>
 
 > ## Project 1: Stealth Game
-<img src="https://user-images.githubusercontent.com/86781939/168446004-5138e1a4-a0ed-49e6-a346-58a50f992568.png"  width="800" height="400" >
+<img src="https://user-images.githubusercontent.com/86781939/168446004-5138e1a4-a0ed-49e6-a346-58a50f992568.png"  width="1000" height="600" >
 
 - 오브젝트(Actor) 추가
 - 오브젝트 컴포넌트 할당 (mesh, collision, event 등)
@@ -21,7 +21,7 @@ Using Unreal Engine 4.18.3 <br>
 <br><br>
 
 > ## Project 2: Co-op Game
-<img src="https://user-images.githubusercontent.com/86781939/169050868-932a05aa-1df6-4527-85fe-a2fb17028f55.png" width="800" height="400" >
+<img src="https://user-images.githubusercontent.com/86781939/169050868-932a05aa-1df6-4527-85fe-a2fb17028f55.png" width="1000" height="600" >
 
 ### **1. Player Setup**
   - 캐릭터 이동 구현, 마우스 화면 뷰 구현
