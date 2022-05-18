@@ -1,0 +1,101 @@
+gamemode가 spawning logic 담당.
+월드세팅에서 GameMode 블루프린트 할당 가능
+
+# 무기 Replicate
+캐릭터 클래스
+Default Weapon Spawn로직을 if(Role == ROLE_Authority) 안에 넣어서
+서버가 weapon을 생성하게 한다.
+
+이후 무기클래스 생성자에서 SetReplicates(true); 넣어줌.
+ 
++ 캐릭터 헤더파일에서
+UPROPERTY(Replicated)                  넣어주고
+ASWeapon* CurrentWeapon;
+
+캐릭터 cpp에
+
+#include "Net/UnrealNetwork.h" 선언하고
+
+void ASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ASCharacter, CurrentWeapon);
+}
+
+함수로 어떤것을, 어떻게 Replicate 할 지 코드로 설정 가능.
+
+------------
+
+무기클래스 헤더에
+UFUNCTION(Server, Reliable, WithValidation)
+void ServerFire(); 선언 후 implement 생성
+
+무기클래스 cpp 생성자에
+Fire(); 넣고
+
+// 서버가 아니면 실행
+if (Role < ROLE_Authority)
+{
+	ServerFire();
+	return;
+}
+
+이렇게 짜면 클라이언트가 fire 하는게 아니라 서버에 요청하고 서버에서 fire 하게됨.
+
+--> 여기까지하면 클라이언트랑 서버에서 쏠때 (Fire) 클라이언트는 못보고 서버에서만 효과가 보임.
+
++ 여기서 return; 을 지우면 클라이언트도 밑 코드까지 실행해서 클라이언트에서도 보임
++ But dedicated 체크 (다 클라이언트)가 되면 서로 쏘는게 안보임.
+
+클라이언트들끼리도 보이게하려면?
+
+무기헤더에
+구조체 만들어주고
+
+USTRUCT()
+struct FHitScanTrace
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY()
+	FVector_NetQuantize TraceFrom;
+
+	UPROPERTY()
+	FVector_NetQuantize TraceTo;
+
+};
+
+UFUNCTION()
+void OnRep_HitScanTrace();
+
+implementation에서
+void ASWeapon::OnRep_HitScanTrace()
+{
+	//Play Cosmetic FX
+	PlayFireEffects(HitScanTrace.TraceTo);
+}
+
++ Fire 함수에
+if (Role == ROLE_Authority)
+{
+	HitScanTrace.TraceTo = TracerEndPoint;
+} 추가
+
+무기 cpp에
+void ASWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME_CONDITION(ASWeapon, HitScanTrace, COND_SkipOwner);
+} 써줌.
+
+++ 무기 생성자에
+NetUpdateFrequency = 66.0f;
+MinNetUpdateFrequency = 33.0f;
+써서 network latency 조절해줌.
+
+++ 액터클래스에선
+Role 대신 GetOwnerRole() 사용.

@@ -45,3 +45,7 @@ Using Unreal Engine 4.18.3 <br>
 ### **4. Hitpoints and Death**
   - 체력 컴포넌트 구현
   - Death 이벤트 구현
+
+### **5. Game Networking**
+  - 멀티플레이어 설정
+  - Replicate Variables, Events, Components...
