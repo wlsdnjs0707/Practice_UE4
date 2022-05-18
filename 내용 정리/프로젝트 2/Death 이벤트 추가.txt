@@ -1,0 +1,20 @@
+캐릭터 클래스 헤더에
+UFUNCTION()
+void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+
+선언 후 임플먼트에
+if (Health <= 0.0f)
+{
+	//Die
+	GetMovementComponent()->StopMovementImmediately();
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	DetachFromControllerPendingDestroy();
+
+	SetLifeSpan(10.0f);
+
+}
+
+이후 애니메이션 블루프린트 Anim Graph에서
+blend bool 생성한 뒤 bDied가 True일때 Death 애니메이션 할당, False일때 원래 디폴트 할당
++ 죽는 애니메이션은 loop 해제해줘야함 (한번만 죽어야하니까)

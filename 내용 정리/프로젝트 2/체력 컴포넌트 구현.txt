@@ -1,0 +1,54 @@
+new cpp file - actor component (scene component도 가능) 생성
+
+후 헤더파일에
+
+UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "HealthComponent")
+float Health;
+
+선언해주고
+
+cpp 생성자에 Health = 100;
+
+-----
+
+헤더에
+
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HealthComponent")
+float DefaultHealth;
+
+UFUNCTION()
+void HandleTakeAnyDamage(AActor* DamageActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+
+임플먼트 생성 후
+
+beginplay에 Health = DefaultHealth;
+
+임플먼트에
+
+void USHealthComponent::HandleTakeAnyDamage(AActor* DamageActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
+{
+	if (Damage <= 0.0f)
+	{
+		return;
+	}
+
+	Health = FMath::Clamp(Health - Damage, 0.0f, DefaultHealth);
+
+	UE_LOG(LogTemp, Log, TEXT("Health Changed: %s"), *FString::SanitizeFloat(Health));
+}
+
+# 커스텀 이벤트 생성
+헤더파일 맨 위에
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(FOnHealthChangedSignature, USHealthComponent*, HealthComp, float, Health, float, HealthDelta, const class UDamageType*, DamageType, class AController*, InstigatedBy, AActor*, DamageCauser);
+한 다음
+public:
+
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnHealthChangedSignature OnHealthChanged;
+
+선언해주고
+
+HandleTakeAnyDamage 함수에
+OnHealthChanged.Broadcast(this, Health, Damage, DamageType, InstigatedBy, DamageCauser); 추가
+
+-> 체력 컴포넌트 블루프린트에 OnHealthChanged 이벤트 생김

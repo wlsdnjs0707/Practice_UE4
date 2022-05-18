@@ -41,3 +41,7 @@ Using Unreal Engine 4.18.3 <br>
   - Surface Type 설정
   - Custom Collision Channel 설정
   - Auto-Fire 구현
+
+### **4. Hitpoints and Death**
+  - 체력 컴포넌트 구현
+  - Death 이벤트 구현
